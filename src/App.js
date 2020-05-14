@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+
+import Project from "./components/Project";
+
+import projects from './projects';
+
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="Header">
+        <h1>Ejemplo</h1>
+      </div>
+      <BrowserRouter>
+        <nav className="nav-container">
+          <ul>
+            {projects.map((project, i) => (
+              <li key={i}>
+                <Link to={`/project/${project.id}`}>{project.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <Switch>
+          <Route path="/project/:projectId">
+            <Project />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
